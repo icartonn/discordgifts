@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gifts — NFT подарки в Discord</title>
+    <title>Discord Gifts — NFT подарки в Discord</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -21,6 +21,7 @@
             line-height: 1.6;
             min-height: 100vh;
             overflow-x: hidden;
+            position: relative;
         }
 
         /* Animated mosaic background */
@@ -32,8 +33,9 @@
             height: 200%;
             transform: rotate(45deg);
             z-index: 0;
-            opacity: 0.08;
-            animation: mosaicMove 60s linear infinite;
+            opacity: 0.15;
+            animation: mosaicMove 80s linear infinite;
+            pointer-events: none;
         }
 
         @keyframes mosaicMove {
@@ -47,9 +49,9 @@
 
         .mosaic-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, 150px);
-            grid-auto-rows: 150px;
-            gap: 20px;
+            grid-template-columns: repeat(auto-fill, 120px);
+            grid-auto-rows: 120px;
+            gap: 15px;
             width: 100%;
             height: 100%;
         }
@@ -57,23 +59,27 @@
         .mosaic-item {
             background-size: cover;
             background-position: center;
-            border-radius: 8px;
-            opacity: 0.6;
-            transition: opacity 0.3s ease;
+            border-radius: 4px;
+            transition: opacity 0.5s ease;
         }
 
-        .mosaic-item:nth-child(odd) {
-            animation: fadeInOut 8s ease-in-out infinite;
+        .mosaic-item:nth-child(3n) {
+            animation: fadeInOut 10s ease-in-out infinite;
         }
 
-        .mosaic-item:nth-child(even) {
-            animation: fadeInOut 8s ease-in-out infinite;
-            animation-delay: 4s;
+        .mosaic-item:nth-child(3n+1) {
+            animation: fadeInOut 10s ease-in-out infinite;
+            animation-delay: 3.3s;
+        }
+
+        .mosaic-item:nth-child(3n+2) {
+            animation: fadeInOut 10s ease-in-out infinite;
+            animation-delay: 6.6s;
         }
 
         @keyframes fadeInOut {
-            0%, 100% { opacity: 0.4; }
-            50% { opacity: 0.7; }
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
         }
 
         /* Subtle background gradient overlay */
@@ -85,24 +91,8 @@
             width: 100%;
             height: 100%;
             background: 
-                radial-gradient(circle at 20% 20%, rgba(88, 101, 242, 0.05) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(88, 101, 242, 0.03) 0%, transparent 50%);
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        body::after {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(180deg, 
-                rgba(15, 15, 20, 0.95) 0%, 
-                rgba(15, 15, 20, 0.85) 50%, 
-                rgba(15, 15, 20, 0.95) 100%
-            );
+                radial-gradient(circle at 20% 20%, rgba(88, 101, 242, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(88, 101, 242, 0.05) 0%, transparent 50%);
             pointer-events: none;
             z-index: 1;
         }
@@ -201,7 +191,7 @@
             max-width: 1200px;
             margin: 0 auto;
             position: relative;
-            z-index: 1;
+            z-index: 10;
         }
 
         .hero-content {
@@ -234,7 +224,7 @@
             max-width: 1200px;
             margin: 0 auto;
             position: relative;
-            z-index: 1;
+            z-index: 10;
         }
 
         .section-title {
@@ -281,7 +271,7 @@
             border-top: 1px solid rgba(88, 101, 242, 0.1);
             margin-top: 4rem;
             position: relative;
-            z-index: 1;
+            z-index: 10;
         }
 
         .footer-content {
@@ -366,7 +356,7 @@
         <nav>
             <div class="logo-container">
                 <img src="gifts.png" alt="Discord Gifts Logo" class="logo-img">
-                <div class="logo">Подарки</div>
+                <div class="logo">Discord Gifts</div>
             </div>
             <div class="nav-buttons">
                 <a href="https://discord.gg/hngpVmqPJF" class="discord-server-button" target="_blank">Discord сервер</a>
@@ -433,7 +423,7 @@
         <div class="footer-content">
             <div class="logo-container">
                 <img src="gifts.png" alt="Discord Gifts Logo" class="logo-img">
-                <div class="logo">Подарки</div>
+                <div class="logo">Discord Gifts</div>
             </div>
             <div class="footer-links">
                 <a href="https://icartonn.github.io/discordgifts-tos/" target="_blank">Terms of Service</a>
