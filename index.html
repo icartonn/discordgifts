@@ -436,29 +436,34 @@
     <script>
         // Generate mosaic grid with images
         const mosaicGrid = document.getElementById('mosaicGrid');
-        const imageCount = 20; // Количество разных изображений в папке images/
-        const totalTiles = 100; // Общее количество плиток в мозаике
+        
+        // Реальные имена файлов из папки images/
+        const images = [
+            'images/12740853.png',
+            'images/5opka-about-vk-2.png',
+            'images/5opka.png',
+            'images/elka.png',
+            'images/gifts.png',
+            'images/glasses.png',
+            'images/glasses_neverlose.png',
+            'images/grant.png',
+            'images/images1',
+            'images/png.png'
+        ];
 
-        // Массив с путями к изображениям
-        const images = [];
-        for (let i = 1; i <= imageCount; i++) {
-            images.push(`images/${i}.png`);
-            images.push(`images/${i}.jpg`);
-            images.push(`images/${i}.jpeg`);
-            images.push(`images/${i}.gif`);
-        }
+        const totalTiles = 120; // Общее количество плиток в мозаике
 
         // Создаём плитки мозаики
         for (let i = 0; i < totalTiles; i++) {
             const tile = document.createElement('div');
             tile.className = 'mosaic-item';
             
-            // Случайное изображение из папки
+            // Случайное изображение из списка
             const randomImage = images[Math.floor(Math.random() * images.length)];
             tile.style.backgroundImage = `url('${randomImage}')`;
             
             // Случайная задержка анимации для каждой плитки
-            tile.style.animationDelay = `${Math.random() * 8}s`;
+            tile.style.animationDelay = `${Math.random() * 10}s`;
             
             mosaicGrid.appendChild(tile);
         }
