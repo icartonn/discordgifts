@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discord Gifts — NFT подарки в Discord</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #0f0f14 0%, #1a1a24 100%);
+            color: #e4e4e7;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* Subtle background gradient overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(88, 101, 242, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(88, 101, 242, 0.03) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 5%;
+            background: linear-gradient(135deg, rgba(15, 15, 20, 0.95) 0%, rgba(26, 26, 36, 0.95) 100%);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(88, 101, 242, 0.1);
+            z-index: 1000;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .logo-img {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+        }
+
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: -0.5px;
+        }
+
+        .add-button {
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(135deg, #5865F2 0%, #4752C4 100%);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 2px 8px rgba(88, 101, 242, 0.2);
+        }
+
+        .add-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(88, 101, 242, 0.3);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 10rem 5% 6rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-content {
+            max-width: 700px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -1px;
+            color: #ffffff;
+            background: linear-gradient(135deg, #ffffff 0%, #a5b4fc 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: #a1a1aa;
+            margin-bottom: 2.5rem;
+            line-height: 1.7;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 4rem 5% 6rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            color: #ffffff;
+        }
+
+        .features-list {
+            display: grid;
+            gap: 1rem;
+            background: linear-gradient(135deg, rgba(24, 24, 32, 0.4) 0%, rgba(30, 30, 40, 0.4) 100%);
+            border: 1px solid rgba(88, 101, 242, 0.1);
+            border-radius: 12px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .feature-item {
+            padding: 1.5rem 0;
+            border-bottom: 1px solid rgba(88, 101, 242, 0.08);
+        }
+
+        .feature-item:last-child {
+            border-bottom: none;
+        }
+
+        .feature-item h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #ffffff;
+        }
+
+        .feature-item p {
+            color: #a1a1aa;
+            font-size: 0.95rem;
+        }
+
+        /* Footer */
+        footer {
+            padding: 3rem 5%;
+            border-top: 1px solid rgba(88, 101, 242, 0.1);
+            margin-top: 4rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .footer-links a {
+            color: #a1a1aa;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s ease;
+        }
+
+        .footer-links a:hover {
+            color: #5865F2;
+        }
+
+        .footer-note {
+            color: #71717a;
+            font-size: 0.85rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero {
+                padding: 8rem 5% 4rem;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .section-title {
+                font-size: 1.75rem;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo-container">
+                <img src="gifts.png" alt="Discord Gifts Logo" class="logo-img">
+                <div class="logo">Discord Gifts</div>
+            </div>
+            <a href="https://discord.com/oauth2/authorize?client_id=1425566982065094707" class="add-button" target="_blank">Добавить бота</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>NFT подарки в Discord</h1>
+            <p>Покупайте, продавайте и обменивайтесь подарками за звёзды прямо в Discord. Бот-приложение, всегда под рукой.</p>
+            <a href="https://discord.com/oauth2/authorize?client_id=1425566982065094707" class="add-button" target="_blank">Добавить в Discord</a>
+        </div>
+    </section>
+
+    <section class="features">
+        <h2 class="section-title">Возможности</h2>
+
+        <div class="features-list">
+            <div class="feature-item">
+                <h3>/shop</h3>
+                <p>GUI-шоп с удобным управлением и покупкой в один клик</p>
+            </div>
+
+            <div class="feature-item">
+                <h3>/info</h3>
+                <p>Просматривайте статистику, подарки, звёзды и реферальные коды пользователей</p>
+            </div>
+
+            <div class="feature-item">
+                <h3>/referal</h3>
+                <p>Создание реферального кода для приглашения друзей</p>
+            </div>
+
+            <div class="feature-item">
+                <h3>/pay</h3>
+                <p>Передача звёзд другим пользователям без комиссии</p>
+            </div>
+
+            <div class="feature-item">
+                <h3>/buy-stars</h3>
+                <p>Покупка звёзд через CryptoPay: USDT, TON, BTC</p>
+            </div>
+
+            <div class="feature-item">
+                <h3>/top</h3>
+                <p>Таблица лидеров по количеству звёзд</p>
+            </div>
+
+            <div class="feature-item">
+                <h3>/notifications</h3>
+                <p>Уведомления о переводах лично от бота</p>
+            </div>
+
+            <div class="feature-item">
+                <h3>/cases</h3>
+                <p>Уникальные кейсы с подарками и звёздами</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="logo-container">
+                <img src="gifts.png" alt="Discord Gifts Logo" class="logo-img">
+                <div class="logo">Discord Gifts</div>
+            </div>
+            <div class="footer-links">
+                <a href="https://icartonn.github.io/discordgifts-tos/" target="_blank">Terms of Service</a>
+                <a href="https://icartonn.github.io/discordgifts-tos/" target="_blank">Privacy Policy</a>
+            </div>
+            <p class="footer-note">Вывод звёзд в реальные деньги невозможен</p>
+        </div>
+    </footer>
+</body>
+</html>
