@@ -20,6 +20,60 @@
             color: #e4e4e7;
             line-height: 1.6;
             min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Animated mosaic background */
+        .mosaic-background {
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            transform: rotate(45deg);
+            z-index: 0;
+            opacity: 0.08;
+            animation: mosaicMove 60s linear infinite;
+        }
+
+        @keyframes mosaicMove {
+            0% {
+                transform: rotate(45deg) translateX(0) translateY(0);
+            }
+            100% {
+                transform: rotate(45deg) translateX(-10%) translateY(-10%);
+            }
+        }
+
+        .mosaic-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, 150px);
+            grid-auto-rows: 150px;
+            gap: 20px;
+            width: 100%;
+            height: 100%;
+        }
+
+        .mosaic-item {
+            background-size: cover;
+            background-position: center;
+            border-radius: 8px;
+            opacity: 0.6;
+            transition: opacity 0.3s ease;
+        }
+
+        .mosaic-item:nth-child(odd) {
+            animation: fadeInOut 8s ease-in-out infinite;
+        }
+
+        .mosaic-item:nth-child(even) {
+            animation: fadeInOut 8s ease-in-out infinite;
+            animation-delay: 4s;
+        }
+
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 0.7; }
         }
 
         /* Subtle background gradient overlay */
@@ -34,7 +88,23 @@
                 radial-gradient(circle at 20% 20%, rgba(88, 101, 242, 0.05) 0%, transparent 50%),
                 radial-gradient(circle at 80% 80%, rgba(88, 101, 242, 0.03) 0%, transparent 50%);
             pointer-events: none;
-            z-index: 0;
+            z-index: 1;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, 
+                rgba(15, 15, 20, 0.95) 0%, 
+                rgba(15, 15, 20, 0.85) 50%, 
+                rgba(15, 15, 20, 0.95) 100%
+            );
+            pointer-events: none;
+            z-index: 1;
         }
 
         /* Header */
@@ -96,6 +166,33 @@
         .add-button:hover {
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(88, 101, 242, 0.3);
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .discord-server-button {
+            padding: 0.75rem 1.5rem;
+            background: rgba(88, 101, 242, 0.1);
+            border: 1px solid rgba(88, 101, 242, 0.3);
+            border-radius: 8px;
+            color: #a5b4fc;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .discord-server-button:hover {
+            background: rgba(88, 101, 242, 0.2);
+            border-color: rgba(88, 101, 242, 0.5);
+            color: #c7d2fe;
+            transform: translateY(-2px);
         }
 
         /* Hero Section */
@@ -240,17 +337,41 @@
                 flex-direction: column;
                 text-align: center;
             }
+
+            .nav-buttons {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .discord-server-button,
+            .add-button {
+                width: 100%;
+                text-align: center;
+            }
+
+            nav {
+                flex-direction: column;
+                gap: 1rem;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Animated mosaic background -->
+    <div class="mosaic-background">
+        <div class="mosaic-grid" id="mosaicGrid"></div>
+    </div>
+
     <header>
         <nav>
             <div class="logo-container">
                 <img src="gifts.png" alt="Discord Gifts Logo" class="logo-img">
                 <div class="logo">Discord Gifts</div>
             </div>
-            <a href="https://discord.com/oauth2/authorize?client_id=1425566982065094707" class="add-button" target="_blank">Добавить бота</a>
+            <div class="nav-buttons">
+                <a href="https://discord.gg/hngpVmqPJF" class="discord-server-button" target="_blank">Discord сервер</a>
+                <a href="https://discord.com/oauth2/authorize?client_id=1425566982065094707" class="add-button" target="_blank">Добавить бота</a>
+            </div>
         </nav>
     </header>
 
@@ -321,5 +442,36 @@
             <p class="footer-note">Вывод звёзд в реальные деньги невозможен</p>
         </div>
     </footer>
+
+    <script>
+        // Generate mosaic grid with images
+        const mosaicGrid = document.getElementById('mosaicGrid');
+        const imageCount = 20; // Количество разных изображений в папке images/
+        const totalTiles = 100; // Общее количество плиток в мозаике
+
+        // Массив с путями к изображениям
+        const images = [];
+        for (let i = 1; i <= imageCount; i++) {
+            images.push(`images/${i}.png`);
+            images.push(`images/${i}.jpg`);
+            images.push(`images/${i}.jpeg`);
+            images.push(`images/${i}.gif`);
+        }
+
+        // Создаём плитки мозаики
+        for (let i = 0; i < totalTiles; i++) {
+            const tile = document.createElement('div');
+            tile.className = 'mosaic-item';
+            
+            // Случайное изображение из папки
+            const randomImage = images[Math.floor(Math.random() * images.length)];
+            tile.style.backgroundImage = `url('${randomImage}')`;
+            
+            // Случайная задержка анимации для каждой плитки
+            tile.style.animationDelay = `${Math.random() * 8}s`;
+            
+            mosaicGrid.appendChild(tile);
+        }
+    </script>
 </body>
 </html>
