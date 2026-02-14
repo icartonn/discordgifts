@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Discord Gifts — NFT подарки в Discord</title>
+    <link rel="icon" type="image/png" href="gifts.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -195,6 +196,30 @@
             align-items: center;
         }
 
+        .language-selector {
+            padding: 0.5rem 0.75rem;
+            background: rgba(88, 101, 242, 0.05);
+            border: 1px solid rgba(88, 101, 242, 0.2);
+            border-radius: 6px;
+            color: #a5b4fc;
+            font-weight: 500;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            outline: none;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .language-selector:hover {
+            background: rgba(88, 101, 242, 0.1);
+            border-color: rgba(88, 101, 242, 0.3);
+        }
+
+        .language-selector option {
+            background: #1a1a24;
+            color: #e4e4e7;
+        }
+
         .discord-server-button {
             padding: 0.75rem 1.5rem;
             background: rgba(88, 101, 242, 0.1);
@@ -364,6 +389,7 @@
                 width: 100%;
             }
 
+            .language-selector,
             .discord-server-button,
             .add-button {
                 width: 100%;
@@ -390,6 +416,10 @@
                 <div class="logo">Discord Gifts</div>
             </div>
             <div class="nav-buttons">
+                <select class="language-selector" id="languageSelector">
+                    <option value="ru">🇷🇺 Русский</option>
+                    <option value="en">🇬🇧 English</option>
+                </select>
                 <a href="https://discord.gg/hngpVmqPJF" class="discord-server-button" target="_blank">Discord сервер</a>
                 <a href="https://discord.com/oauth2/authorize?client_id=1425566982065094707" class="add-button" target="_blank">Добавить бота</a>
             </div>
@@ -458,7 +488,7 @@
             </div>
             <div class="footer-links">
                 <a href="https://icartonn.github.io/discordgifts-tos/" target="_blank">Terms of Service</a>
-                <a href="https://icartonn.github.io/discordgifts-tos/" target="_blank">Privacy Policy</a>
+                <a href="https://icartonn.github.io/discordgifts-privacypolicy/" target="_blank">Privacy Policy</a>
                 <a href="https://boticord.top/bot/1371480264630472745+1425566982065094707/" target="_blank">Отзывы</a>
             </div>
             <p class="footer-note">Вывод звёзд в реальные деньги невозможен</p>
@@ -466,21 +496,112 @@
     </footer>
 
     <script>
+        // Переводы
+        const translations = {
+            ru: {
+                title: "NFT подарки в Discord",
+                description: "Покупайте, продавайте и обменивайтесь подарками за звёзды прямо в Discord. Бот-приложение, всегда под рукой.",
+                addBot: "Добавить в Discord",
+                features: "Возможности",
+                discordServer: "Discord сервер",
+                addBotButton: "Добавить бота",
+                shop: "GUI-шоп с удобным управлением и покупкой в один клик",
+                info: "Просматривайте статистику, подарки, звёзды и реферальные коды пользователей",
+                referal: "Создание реферального кода для приглашения друзей",
+                pay: "Передача звёзд другим пользователям без комиссии",
+                buyStars: "Покупка звёзд через CryptoPay: USDT, TON, BTC",
+                top: "Таблица лидеров по количеству звёзд",
+                notifications: "Уведомления о переводах лично от бота",
+                cases: "Уникальные кейсы с подарками и звёздами",
+                footerNote: "Вывод звёзд в реальные деньги невозможен"
+            },
+            en: {
+                title: "NFT gifts in Discord",
+                description: "Buy, sell and exchange gifts for stars directly in Discord. Bot application, always at hand.",
+                addBot: "Add to Discord",
+                features: "Features",
+                discordServer: "Discord server",
+                addBotButton: "Add bot",
+                shop: "GUI shop with convenient management and one-click purchase",
+                info: "View statistics, gifts, stars and referral codes of users",
+                referal: "Create a referral code to invite friends",
+                pay: "Transfer stars to other users without commission",
+                buyStars: "Buy stars via CryptoPay: USDT, TON, BTC",
+                top: "Leaderboard by number of stars",
+                notifications: "Notifications about transfers directly from the bot",
+                cases: "Unique cases with gifts and stars",
+                footerNote: "Withdrawal of stars to real money is not possible"
+            }
+        };
+
+        // Определение языка браузера
+        function getBrowserLanguage() {
+            const lang = navigator.language || navigator.userLanguage;
+            const langCode = lang.split('-')[0];
+            return translations[langCode] ? langCode : 'ru';
+        }
+
+        // Применение перевода
+        function applyTranslation(lang) {
+            const t = translations[lang];
+            document.querySelector('.hero h1').textContent = t.title;
+            document.querySelector('.hero p').textContent = t.description;
+            document.querySelector('.hero .add-button').textContent = t.addBot;
+            document.querySelector('.section-title').textContent = t.features;
+            document.querySelector('.discord-server-button').textContent = t.discordServer;
+            document.querySelectorAll('.add-button')[1].textContent = t.addBotButton;
+            
+            const features = document.querySelectorAll('.feature-item p');
+            features[0].textContent = t.shop;
+            features[1].textContent = t.info;
+            features[2].textContent = t.referal;
+            features[3].textContent = t.pay;
+            features[4].textContent = t.buyStars;
+            features[5].textContent = t.top;
+            features[6].textContent = t.notifications;
+            features[7].textContent = t.cases;
+            
+            document.querySelector('.footer-note').textContent = t.footerNote;
+            
+            // Обновление title страницы
+            document.title = t.title + ' — Discord Gifts';
+        }
+
+        // Инициализация языка
+        const languageSelector = document.getElementById('languageSelector');
+        const initialLang = getBrowserLanguage();
+        languageSelector.value = initialLang;
+        applyTranslation(initialLang);
+
+        // Обработчик смены языка
+        languageSelector.addEventListener('change', (e) => {
+            applyTranslation(e.target.value);
+            localStorage.setItem('selectedLanguage', e.target.value);
+        });
+
+        // Восстановление выбранного языка из localStorage
+        const savedLang = localStorage.getItem('selectedLanguage');
+        if (savedLang && translations[savedLang]) {
+            languageSelector.value = savedLang;
+            applyTranslation(savedLang);
+        }
+
         // Generate mosaic grid with images
         const mosaicGrid = document.getElementById('mosaicGrid');
         
         // Реальные имена файлов из папки images/
         const images = [
+            'images/0-moon.gif',
             'images/12740853.png',
             'images/5opka-about-vk-2.png',
             'images/5opka.png',
+            'images/blue-heart.gif',
+            'images/brown-heart.gif',
+            'images/christmas-tree.gif',
             'images/elka.png',
             'images/gifts.png',
             'images/glasses.png',
-            'images/glasses_neverlose.png',
-            'images/grant.png',
-            'images/images1',
-            'images/png.png'
+            'images/glasses_neverlose.png'
         ];
 
         const totalTiles = 120; // Общее количество плиток в мозаике
