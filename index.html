@@ -549,7 +549,11 @@
             document.querySelector('.hero .add-button').textContent = t.addBot;
             document.querySelector('.section-title').textContent = t.features;
             document.querySelector('.discord-server-button').textContent = t.discordServer;
-            document.querySelectorAll('.add-button')[1].textContent = t.addBotButton;
+            
+            // Обе кнопки "Добавить бота" (в навигации и в hero секции)
+            const addButtons = document.querySelectorAll('.add-button');
+            addButtons[0].textContent = t.addBotButton; // Кнопка в навигации
+            addButtons[1].textContent = t.addBot; // Кнопка в hero секции
             
             const features = document.querySelectorAll('.feature-item p');
             features[0].textContent = t.shop;
@@ -598,6 +602,7 @@
             'images/blue-heart.gif',
             'images/brown-heart.gif',
             'images/christmas-tree.gif',
+            'images/elka.png',
             'images/gifts.png',
             'images/glasses.png',
             'images/glasses_neverlose.png'
