@@ -61,34 +61,20 @@
             background-size: cover;
             background-position: center;
             border-radius: 4px;
-            opacity: 0;
-            animation: initialFadeIn 1.5s ease-out forwards;
-        }
-
-        @keyframes initialFadeIn {
-            from {
-                opacity: 0;
-                transform: scale(0.8);
-            }
-            to {
-                opacity: 0.3;
-                transform: scale(1);
-            }
         }
 
         .mosaic-item:nth-child(3n) {
-            animation: initialFadeIn 1.5s ease-out forwards, fadeInOut 12s ease-in-out infinite;
-            animation-delay: 0s, 1.5s;
+            animation: fadeInOut 12s ease-in-out infinite;
         }
 
         .mosaic-item:nth-child(3n+1) {
-            animation: initialFadeIn 1.5s ease-out forwards, fadeInOut 12s ease-in-out infinite;
-            animation-delay: 0s, 5.5s;
+            animation: fadeInOut 12s ease-in-out infinite;
+            animation-delay: 4s;
         }
 
         .mosaic-item:nth-child(3n+2) {
-            animation: initialFadeIn 1.5s ease-out forwards, fadeInOut 12s ease-in-out infinite;
-            animation-delay: 0s, 9.5s;
+            animation: fadeInOut 12s ease-in-out infinite;
+            animation-delay: 8s;
         }
 
         @keyframes fadeInOut {
@@ -513,7 +499,8 @@
                 top: "Таблица лидеров по количеству звёзд",
                 notifications: "Уведомления о переводах лично от бота",
                 cases: "Уникальные кейсы с подарками и звёздами",
-                footerNote: "Вывод звёзд в реальные деньги невозможен"
+                footerNote: "Вывод звёзд в реальные деньги невозможен",
+                reviews: "Отзывы"
             },
             en: {
                 title: "NFT gifts in Discord",
@@ -530,7 +517,8 @@
                 top: "Leaderboard by number of stars",
                 notifications: "Notifications about transfers directly from the bot",
                 cases: "Unique cases with gifts and stars",
-                footerNote: "Withdrawal of stars to real money is not possible"
+                footerNote: "Withdrawal of stars to real money is not possible",
+                reviews: "Reviews"
             }
         };
 
@@ -566,6 +554,10 @@
             features[7].textContent = t.cases;
             
             document.querySelector('.footer-note').textContent = t.footerNote;
+            
+            // Кнопка "Отзывы" в футере
+            const footerLinks = document.querySelectorAll('.footer-links a');
+            footerLinks[2].textContent = t.reviews;
             
             // Обновление title страницы
             document.title = t.title + ' — Discord Gifts';
@@ -618,10 +610,6 @@
             // Случайное изображение из списка
             const randomImage = images[Math.floor(Math.random() * images.length)];
             tile.style.backgroundImage = `url('${randomImage}')`;
-            
-            // Случайная задержка появления для каждой плитки (от 0 до 2 секунд)
-            const initialDelay = Math.random() * 2;
-            tile.style.setProperty('animation-delay', `${initialDelay}s, ${initialDelay + 1.5 + Math.random() * 10}s`);
             
             mosaicGrid.appendChild(tile);
         }
